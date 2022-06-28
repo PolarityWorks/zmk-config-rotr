@@ -1,9 +1,13 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/bt.h>
 
-&inc_dec_cp {
-	activation-resolution = <90>;
+&inc_dec_kp {
+	triggers-per-rotation = <4>;
+};
+&def_lshft {
+	triggers-per-rotation = <4>;
 };
 
 / {
@@ -12,8 +16,27 @@
 
 		default_layer {
 			//PREV | PLAY/PAUSE | NEXT
-			bindings = <&bootloader &rgb_ug RGB_TOG &kp C_VOL_DN>;
+			bindings = <&kp C_MUTE &lt 4 F13 &kp C_PP>;
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+		};
+		one {
+			//PREV | PLAY/PAUSE | NEXT
+			bindings = <&kp C_PREV &lt 4 C_PP &kp C_NEXT>;
+			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+		};
+		two {
+			//PREV | PLAY/PAUSE | NEXT
+			bindings = <&kp LEFT &lt 4 SPACE &kp RIGHT>;
+			sensor-bindings = <&inc_dec_kp PG_UP PG_DN>;
+		};
+		three {
+			//PREV | PLAY/PAUSE | NEXT
+			bindings = <&kp C_MUTE &lt 4 F13 &kp C_PP>;
+		};
+		shift {
+			//PREV | PLAY/PAUSE | NEXT
+			bindings = <&bt BT_CLR &trans &rgb_ug RGB_TOG>;
+			sensor-bindings = <&def_lshft>;
 		};
 	};
 };

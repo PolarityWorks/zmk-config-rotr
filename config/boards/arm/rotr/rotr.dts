@@ -6,10 +6,11 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
+#include <dt-bindings/led/led.h>
 
 / {
 	model = "ROTR";
-	compatible = "polarityworks,rotr";
+	compatible = "rotr";
 
 	chosen {
 		zephyr,sram = &sram0;
@@ -17,6 +18,8 @@
 		zmk,kscan = &kscan0;
 		zmk,underglow = &led_strip;
 		zephyr,code-partition = &code_partition;
+    zmk,battery = &vbatt;
+    zephyr,console = &cdc_acm_uart;
 	};
 
 	kscan0: kscan {
@@ -43,9 +46,9 @@
 		sensors = <&encoder0>;
 	};
 
-	vbatt {
+	vbatt: vbatt {
 		compatible = "zmk,battery-voltage-divider";
-		label = "BATTERY";
+		label = "VBATT";
 		io-channels = <&adc 2>;
 		output-ohms = <100000>;
 		full-ohms = <(100000 + 100000)>;
@@ -78,10 +81,6 @@
 	compatible = "nordic,nrf-uarte";
 	tx-pin = <6>;
 	rx-pin = <8>;
-};
-
-&usbd {
-	status = "okay";
 };
 
 &spi1 {
@@ -170,5 +169,16 @@
 		chain-length = <3>; /* number of LEDs */
 		spi-one-frame = <0x70>;
 		spi-zero-frame = <0x40>;
+    color-mapping = <LED_COLOR_ID_GREEN
+                   LED_COLOR_ID_RED
+                   LED_COLOR_ID_BLUE>;
 	};
+};
+
+&usbd {
+  status = "okay";
+  cdc_acm_uart: cdc_acm_uart {
+    compatible = "zephyr,cdc-acm-uart";
+    label = "CDC_ACM_0";
+  };
 };
