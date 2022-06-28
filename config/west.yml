@@ -7,7 +7,7 @@ manifest:
   projects:
     - name: zmk
       remote: refil
-      revision: ma730-rotr
+      revision: rotrlayer
       import: app/west.yml
   self:
     path: config
