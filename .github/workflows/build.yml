@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: zmkfirmware/zmk-build-arm:2.4
+      image: zmkfirmware/zmk-build-arm:stable
     name: Build
     steps:
       - name: Checkout
@@ -33,17 +33,14 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: West Build (ROTR)
+      - name: West Build (bt60)
         run: west build -s zmk/app -b rotr -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: ROTR DTS File
-        if: ${{ always() }}
-        run: cat -n build/zephyr/rotr.dts.pre.tmp
       - name: ROTR Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
         run: cp build/zephyr/zmk.uf2 rotr.uf2
-      - name: Archive (rotr)
+      - name: Archive (ROTR)
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: rotr.uf2
+          path: ROTR.uf2
