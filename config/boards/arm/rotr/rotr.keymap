@@ -16,8 +16,8 @@
 
 		default_layer {
 			//PREV | PLAY/PAUSE | NEXT
-			bindings = <&kp C_MUTE &lt 4 F13 &kp BALLS>;
-			sensor-bindings = <&inc_dec_kp C_VOL_UP CUM>;
+			bindings = <&kp C_MUTE &lt 4 F13 &kp C_PP>;
+			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_D>;
 		};
 		one {
 			//PREV | PLAY/PAUSE | NEXT
